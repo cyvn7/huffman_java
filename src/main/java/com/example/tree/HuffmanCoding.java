@@ -142,43 +142,70 @@ public class HuffmanCoding {
         int i, j = 0, k = 0, lim = 0;
         for (i = 0; i < 128; i++) {
             if (czesto[i] != 0) {
-                lim+=(czesto[i]*notNull(kod[i]));
+                lim += (czesto[i] * notNull(kod[i]));
             }
         }
+        int licz = 1;
         pout.write(String.format("%d", czesto['\n']).getBytes(StandardCharsets.UTF_8));
         pout.write("\n".getBytes());
-        for(i=0;i<128;i++){
-            if(czesto[i]!=0 && i!=(int)'\n'){
+        for (i = 0; i < 128; i++) {
+            if (czesto[i] != 0 && i != (int) '\n') {
                 pout.write(i);
                 pout.write(String.format("%d", czesto[i]).getBytes(StandardCharsets.UTF_8));
                 pout.write("\n".getBytes());
+                licz++;
+                licz++;
             }
         }
         pout.write("123456789\n".getBytes());
         pout.write(String.format("%04d\n", lim).getBytes(StandardCharsets.UTF_8));
-        for (i = 0; i < lim; i++) {
-            if (temp[j] == '\0') {
-                in = (char) pin.read();
-                if((int)in!=65535 && kod[in]!=null){
-                    temp=kod[in].toCharArray();
+        String line="",bity="";
+        while((line=pin.readLine())!=null){
+            line+='\n';
+            char[] linia = line.toCharArray();
+            for(char znak:linia){
+                if ((int) znak != 65535 && kod[znak] != null) {
+                    bity += kod[znak].substring(0,notNull(kod[znak]));
                 }
-                j = 0;
-            }
-            if (temp[j] == '1') {
-                c |= (1 << (7 - k));
-            } else if (temp[j] == '0') {
-                c |= (0);
-            } else {
-                System.out.println("ERROR: Błąd w pliku wejściowym. Kompresja niemożliwa");
-            }
-            k++;
-            j++;
-            if (((i + 1) % 8 == 0) || (i == lim - 1)) {
-                k = 0;
-                pout.write(c);
-                c = 0;
             }
         }
+        char[] bitychar=bity.toCharArray();
+        String bajt="";
+        for(char znak:bitychar){
+            if(bajt.length()<7){
+                bajt+=znak;
+            }
+            else{
+                bajt+=znak;
+                pout.write(binaryStringToChar(bajt));
+                bajt="";
+            }
+        }
+        if(bajt.length()!=0){
+            String uzupelnienie="";
+            for(i=0;i<8-bajt.length();i++){
+                uzupelnienie+="0";
+            }
+            bajt+=uzupelnienie;
+        }
+        pout.write((char)Integer.parseInt(bajt, 2));
+    }
+
+    public static char binaryStringToChar(String binaryString) {
+        if (binaryString.length() != 8) {
+            throw new IllegalArgumentException("Input string must be 8 characters long.");
+        }
+
+        int charValue = 0;
+        for (int i = 0; i < 8; i++) {
+            char bit = binaryString.charAt(i);
+            if (bit != '0' && bit != '1') {
+                throw new IllegalArgumentException("Input string must contain only '0' and '1' characters.");
+            }
+            charValue = (charValue << 1) | (bit - '0');
+        }
+
+        return (char) charValue;
     }
 
     // Metoda kodująca plik

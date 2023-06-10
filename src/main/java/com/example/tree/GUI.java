@@ -76,6 +76,7 @@ public class GUI extends Application {
                     }
                     else
                         HuffmanDecoding.dekoduj(path);
+                        //System.out.println(HuffmanDecoding.ilePoziomow()); SPRAWDZENIE POZIOMOW DRZEWKA
 
                 } else if (path == null || path.equals("")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

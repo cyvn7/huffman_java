@@ -20,6 +20,8 @@ public class HuffmanDecoding {
     static Wezel[] qqq = new Wezel[255];  // Kolejka priorytetowa węzłów
     static Wezel[] q = qqq;
 
+    static int poziomy=0;
+
     public static void dekoduj(String nazwaPliku) {
         // Dekodowanie pliku
         // Budowanie ścieżki pliku wejściowego
@@ -98,8 +100,15 @@ public class HuffmanDecoding {
         return slowo;
     }
 
+    public static int ilePoziomow(){
+        return poziomy;
+    }
+
     static void znajdzKody(Wezel node, String code) {
         // Rekurencyjne znajdowanie kodów dla węzłów drzewa
+        if(code.length()>poziomy){
+            poziomy=code.length();
+        }
         if (node.c != 0) {
             kody.put(code, node.c);  // Dodanie kodu do słownika
             return;
