@@ -23,9 +23,7 @@ public class Tree extends Application {
         // Tworzenie siatki (GridPane)
         GridPane gridPane = new GridPane();
 
-        drawCircle(gridPane, 1, 0, 1);
-        drawCircle(gridPane, 0, 1, 2);
-        drawCircle(gridPane, 1, 2, 3);
+        drawCircle(gridPane, 0, 1, 1);
 
         // Tworzenie sceny i ustawianie siatki jako jej korzenia
         Scene scene = new Scene(gridPane);
@@ -52,28 +50,38 @@ public class Tree extends Application {
 
         Line line = new Line();
 
-        if (this.i < 9) {
-            i++;
-            this.rysujLinie(grid, x, 0, 0, poziom);
-            this.rysujLinie(grid, x, 0, 1, poziom);
+        if (poziom < 15 && x > 0) {
+            i=i+1;
+            System.out.println("x w kole: " + poziom);
+            this.rysujLinie(grid, x, 0, poziom);
+            this.rysujLinie(grid, x, 1, poziom);
         }
 
     }
 
-    public void rysujLinie(GridPane grid, int x2, int y2, int strona, int poziom) {
+    public void rysujLinie(GridPane grid, int x2, int strona, int poziom) {
         Line line = new Line();
         int znak = strona == 0 ? -1 : 1;
         line.setStartX(0);
         line.setStartY(0);
-        line.setEndX(znak*(250 / (poziom+1)));
+        line.setEndX(znak*((double) 250 / (poziom+1)));
         line.setEndY(50);
-        grid.add(line, x2+strona, 1+poziom*2);
-       // GridPane.setMargin(line, new Insets(0, 0, 0, 125));
+
+        Text number = new Text(Integer.toString(strona));
+        number.setFont(Font.font("Arial", 20));
+        number.setFill(Color.BLACK);
+
+        grid.add(number, x2+znak, 1+poziom*2);
+        GridPane.setHalignment(number, HPos.CENTER);
+        GridPane.setMargin(number, new Insets(0, 0, 30, 0));
+
+        System.out.println("x w linii: " + x2+strona);
+        grid.add(line, x2+znak, 1+poziom*2);
 
 //        if (strona == 1) {
-//            this.rysujKolo(g, x2 - 25, y2, this.i, poziom + 1);
+//            rysujLinie(grid, x2 + 1, 0, poziom + 1);
 //        } else if (strona == 0) {
-//            this.rysujKolo(g, x2 - 25, y2, this.i, poziom + 1);
+//            rysujLinie(grid, x2 - 1, 1, poziom + 1);
 //        }
 
     }
