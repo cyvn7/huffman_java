@@ -32,6 +32,7 @@ public class HuffmanDecoding {
             BufferedInputStream pinh = new BufferedInputStream(plikin);
             BufferedWriter pout = new BufferedWriter(new FileWriter(propertyout));
             decode(pinh, pout);  // Wywołanie funkcji dekodującej
+            printTree();
             pout.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Zakończono dekompresję");
@@ -190,4 +191,29 @@ public class HuffmanDecoding {
             System.out.println("Błąd na wejściu!");
         }
     }
+
+    public static void printTree() {
+        Wezel root = HuffmanDecoding.q[1];
+        printTreeNode(root, 0);
+    }
+
+    private static void printTreeNode(Wezel node, int level) {
+        if (node == null) {
+            return;
+        }
+
+        for (int i = 0; i < level; i++) {
+            System.out.print("  ");
+        }
+
+        if (node.c != 0) {
+            System.out.println("[" + node.c + " - " + node.czesto + "]");
+        } else {
+            System.out.println("Węzeł");
+        }
+
+        printTreeNode(node.left, level + 1);
+        printTreeNode(node.right, level + 1);
+    }
+
 }
