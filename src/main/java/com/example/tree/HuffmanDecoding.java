@@ -101,6 +101,10 @@ public class HuffmanDecoding {
         return slowo;
     }
 
+    public static Dictionary<String, Character> dajKody(){
+        return(kody);
+    }
+
     public static int ilePoziomow(){
         return poziomy;
     }
