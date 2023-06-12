@@ -1,6 +1,7 @@
 package com.example.tree;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,8 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
 import javax.swing.*;
 import java.io.File;
+import java.util.Dictionary;
 import java.util.Optional;
 
 public class GUI extends Application {
@@ -24,6 +27,8 @@ public class GUI extends Application {
     private Button kompresujBtn;
     private CheckBox szyfrBox;
     private String path;
+
+
 
     public static void main(String[] args) {
         launch(args);
@@ -76,7 +81,7 @@ public class GUI extends Application {
                     }
                     else
                         HuffmanDecoding.dekoduj(path);
-                        //System.out.println(HuffmanDecoding.ilePoziomow()); SPRAWDZENIE POZIOMOW DRZEWKA
+                    launchTree(HuffmanDecoding.dajKody(), HuffmanDecoding.ilePoziomow());
 
                 } else if (path == null || path.equals("")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -111,7 +116,7 @@ public class GUI extends Application {
                     }
                     else
                         HuffmanCoding.koduj(path);
-
+                    //launchTree(HuffmanCoding.dajKody());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Błąd");
@@ -137,5 +142,14 @@ public class GUI extends Application {
         Scene scene = new Scene(vbox, 440, 95);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void launchTree(Dictionary<String, Character> kody, int poziomy) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                Tree tree = new Tree(kody, poziomy);
+                tree.start(new Stage());
+            });
+        }).start();
     }
 }

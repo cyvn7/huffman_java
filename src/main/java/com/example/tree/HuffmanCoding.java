@@ -208,6 +208,7 @@ public class HuffmanCoding {
         return (char) charValue;
     }
 
+
     // Metoda kodująca plik
     public static void koduj(String nazwaPliku) {
         try {

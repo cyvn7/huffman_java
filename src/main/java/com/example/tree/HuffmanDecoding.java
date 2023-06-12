@@ -32,6 +32,7 @@ public class HuffmanDecoding {
             BufferedInputStream pinh = new BufferedInputStream(plikin);
             BufferedWriter pout = new BufferedWriter(new FileWriter(propertyout));
             decode(pinh, pout);  // Wywołanie funkcji dekodującej
+            System.out.println(kody);
             printTree();
             pout.close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -211,7 +212,7 @@ public class HuffmanDecoding {
         }
 
         if (node.c != 0) {
-            System.out.println("[" + node.c + " - " + node.czesto + "]");
+            System.out.println("[" + node.c + " - " + node.czesto + " + level " + level + "]");
         } else {
             System.out.println("Węzeł");
         }
