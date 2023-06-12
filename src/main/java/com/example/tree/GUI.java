@@ -67,6 +67,8 @@ public class GUI extends Application {
         dekompresujBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                HuffmanDecoding dekodowanie=new HuffmanDecoding();
+                HuffmanEncryptor szyfruj=new HuffmanEncryptor();
                 path = pathBox.getText();
                 if (path != null && !path.equals("") && path.endsWith(".huffman")) {
                     if (szyfrBox.isSelected()) {
@@ -77,11 +79,11 @@ public class GUI extends Application {
 
                         Optional<String> result = dialog.showAndWait();
 
-                        HuffmanEncryptor.dekoduj(path, result.get());
+                        szyfruj.dekoduj(path, result.get());
                     }
                     else
-                        HuffmanDecoding.dekoduj(path);
-                    launchTree(HuffmanDecoding.dajKody(), HuffmanDecoding.ilePoziomow());
+                        dekodowanie.dekoduj(path);
+                    launchTree(dekodowanie.dajKody(), dekodowanie.ilePoziomow());
 
                 } else if (path == null || path.equals("")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -102,6 +104,8 @@ public class GUI extends Application {
         kompresujBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                HuffmanCoding kodowanie=new HuffmanCoding();
+                HuffmanEncryptor szyfruj=new HuffmanEncryptor();
                 path = pathBox.getText();
                 if (path != null && !path.equals("")) {
                     if (szyfrBox.isSelected()) {
@@ -112,10 +116,10 @@ public class GUI extends Application {
 
                         Optional<String> result = dialog.showAndWait();
 
-                        HuffmanEncryptor.koduj(path, result.get());
+                        szyfruj.koduj(path, result.get());
                     }
                     else
-                        HuffmanCoding.koduj(path);
+                        kodowanie.koduj(path);
                     //launchTree(HuffmanCoding.dajKody());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

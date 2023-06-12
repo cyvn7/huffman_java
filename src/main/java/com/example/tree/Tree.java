@@ -50,7 +50,7 @@ public class Tree extends Application {
 //            //rysujGalaz(gridPane, e.nextElement().toString(), kody.get(e.nextElement()));
 //            System.out.println("==========================");
 //        }
-        System.out.println(kody.);
+        System.out.println(kody.keys());
         // Tworzenie sceny i ustawianie siatki jako jej korzenia
         Scene scene = new Scene(gridPane);
 
