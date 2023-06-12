@@ -2,6 +2,7 @@ package com.example.tree;
 
 import javafx.scene.control.Alert;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -40,6 +41,7 @@ public class HuffmanDecoding {
             alert.setHeaderText("Plik został pomyślnie zdekompresowany");
             alert.setContentText("Plik zapakowany został do "+propertyout+"");
             alert.showAndWait();
+
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

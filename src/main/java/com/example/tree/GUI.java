@@ -68,7 +68,6 @@ public class GUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 HuffmanDecoding dekodowanie=new HuffmanDecoding();
-                HuffmanEncryptor szyfruj=new HuffmanEncryptor();
                 path = pathBox.getText();
                 if (path != null && !path.equals("") && path.endsWith(".huffman")) {
                     if (szyfrBox.isSelected()) {
@@ -79,12 +78,13 @@ public class GUI extends Application {
 
                         Optional<String> result = dialog.showAndWait();
 
-                        szyfruj.dekoduj(path, result.get());
+                        HuffmanEncryptor.dekoduj(path, result.get());
                     }
-                    else
+                    else {
                         dekodowanie.dekoduj(path);
+                    }
                     launchTree(dekodowanie.dajKody(), dekodowanie.ilePoziomow());
-
+                    primaryStage.close();
                 } else if (path == null || path.equals("")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Błąd");
@@ -105,7 +105,6 @@ public class GUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 HuffmanCoding kodowanie=new HuffmanCoding();
-                HuffmanEncryptor szyfruj=new HuffmanEncryptor();
                 path = pathBox.getText();
                 if (path != null && !path.equals("")) {
                     if (szyfrBox.isSelected()) {
@@ -116,11 +115,13 @@ public class GUI extends Application {
 
                         Optional<String> result = dialog.showAndWait();
 
-                        szyfruj.koduj(path, result.get());
+                        HuffmanEncryptor.koduj(path, result.get());
                     }
-                    else
+                    else {
                         kodowanie.koduj(path);
+                    }
                     //launchTree(HuffmanCoding.dajKody());
+                    primaryStage.close();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Błąd");
